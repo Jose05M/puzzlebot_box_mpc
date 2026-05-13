@@ -181,7 +181,7 @@ Contiene launch files ROS2 utilizados para ejecutar el sistema.
 
 | Topic                | Tipo                | Descripción          |
 | -------------------- | ------------------- | -------------------- |
-| `/video_source/raw`  | `sensor_msgs/Image` | Stream de cámara RGB |
+| `/video_source/raw`  | `sensor_msgs/Image` | Stream de cámara |
 | `/odom`              | `nav_msgs/Odometry` | Odometría del robot  |
 | `/box_color_command` | `std_msgs/String`   | Comandos del usuario |
 
@@ -242,7 +242,6 @@ Esto abre la interfaz de teclado para enviar comandos al robot.
 | ------- | -------------------- |
 | `g`     | Seguir caja verde    |
 | `p`     | Seguir caja rosa     |
-| `y`     | Seguir caja amarilla |
 | `h`     | Regresar a home      |
 | `w x y` | Ir a waypoint        |
 | `c`     | Cancelar misión      |
@@ -260,101 +259,10 @@ envía al robot al waypoint:
 (1.5 , 2.0)
 ```
 
----
-
-# Modelo Predictivo MPC
-
-El controlador opera sobre el estado visual relativo:
-
-$$
-x = [\rho,\alpha]^T
-$$
-
-donde:
-
-* $\rho$ = distancia estimada al objetivo,
-* $\alpha$ = error angular relativo.
-
-El modelo predictivo calibrado es:
-
-$$
-\rho_{k+1} =
-\rho_k -
-K_{\rho} v_k \cos(\alpha_k)\Delta t
-$$
-
-$$
-\alpha_{k+1} =
-\alpha_k -
-K_{\alpha}\omega_k\Delta t
-$$
-
-Las entradas de control son:
-
-$$
-u = [v,\omega]^T
-$$
-
-El controlador evalúa múltiples acciones candidatas dentro de un horizonte finito de predicción y selecciona la acción con menor costo.
-
----
-
-# Procedimiento de Calibración
-
-Los parámetros del modelo MPC fueron calibrados experimentalmente mediante pruebas controladas de movimiento.
-
----
-
-## 1. Ejecutar Nodo de Calibración
-
-```bash
-python3 calibration_node.py
-```
-
----
-
-## 2. Ejecutar Pruebas de Calibración
-
-Comandos disponibles:
-
-| Tecla | Acción                      |
-| ----- | --------------------------- |
-| `k`   | Calibrar distancia focal    |
-| `a`   | Movimiento angular positivo |
-| `d`   | Movimiento angular negativo |
-| `v`   | Movimiento lineal           |
-| `x`   | Detener robot               |
-
----
-
-## 3. Generar Datos de Calibración
-
-El nodo genera:
-
-```text
-calibration_data.csv
-```
-
----
-
-## 4. Analizar Datos de Calibración
-
-```bash
-python3 analyze_calibration.py
-```
-
-Este script estima:
-
-* $K_\rho$
-* $K_\alpha$
-
-utilizados por el modelo predictivo.
-
----
 
 # Datos Experimentales Registrados
 
-Durante la ejecución, el nodo MPC almacena datos experimentales en:
+Durante la ejecución de la prueba, se registraron los datos para su posterior analisis, en:
 
 ```text
 mpc_results.csv
@@ -387,51 +295,15 @@ El robot logró realizar exitosamente:
 * regreso a home,
 * múltiples ciclos completos de misión.
 
-La implementación también incluye:
-
-* acciones de control suaves,
-* velocidades acotadas,
-* coordinación mediante FSM,
-* almacenamiento de datos experimentales.
-
 ---
 
 # Ejemplo de Trayectoria
 
-Agregar aquí imagen de trayectoria:
+Se muestra la imagen de la trayectoria:
 
 ```md
-![Trayectoria](01_trajectory_xy.png)
+![Trayectoria](/media/01_trajectory_xy.png)
 ```
-
----
-
-# Mejoras Futuras
-
-Posibles extensiones futuras:
-
-* evasión de obstáculos,
-* generación dinámica de waypoints,
-* implementación completa de IBVS,
-* integración con SLAM,
-* integración con manipulador,
-* MPC no lineal,
-* planeación multiobjetivo.
-
----
-
-# Reporte
-
-Este repositorio contiene únicamente la implementación y el pipeline de ejecución.
-
-Para detalles sobre:
-
-* formulación matemática,
-* diseño del controlador,
-* análisis experimental,
-* modelado del sistema,
-
-consultar el reporte completo del proyecto.
 
 ---
 
@@ -439,5 +311,3 @@ consultar el reporte completo del proyecto.
 
 José Eduardo Sánchez Martínez
 
-```
-```
