@@ -211,8 +211,6 @@ Solo necesita ROS2 instalado y estar conectada al hotspot del Puzzlebot.
 
 ---
 
-```
-
 Luego compila en tu laptop:
 ```bash
 cd ~/ros2_ws
