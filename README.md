@@ -211,12 +211,6 @@ Solo necesita ROS2 instalado y estar conectada al hotspot del Puzzlebot.
 
 ---
 
-### Copiar el teleop a tu laptop
-
-Si ya tienes el paquete completo en el Puzzlebot, copia solo el teleop:
-
-```bash
-scp puzzlebot@<IP>:~/ros2_ws/src/puzzlebot_box_mpc/puzzlebot_box_mpc/teleop_color.py ~/ros2_ws/src/puzzlebot_box_mpc/puzzlebot_box_mpc/
 ```
 
 Luego compila en tu laptop:
@@ -273,16 +267,6 @@ Ambos se comunican por la red del hotspot del Puzzlebot.
 | `c`     | Cancelar misión      |
 | `q`     | Salir                |
 
-Ejemplo:
-
-```text
-w 1.5 2.0
-```
-
-envía al robot al waypoint:
-
-```text
-(1.5 , 2.0)
 ```
 
 
