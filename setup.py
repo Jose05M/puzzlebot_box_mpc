@@ -22,11 +22,10 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'vs_mpc = puzzlebot_box_mpc.vs_mpc:main',
-            'mpc_odom = puzzlebot_box_mpc.mpc_odom:main',
             'puzzlebot_odometry = puzzlebot_box_mpc.puzzlebot_odometry:main',
-            'mpc_odom_imwrite = puzzlebot_box_mpc.mpc_odom_imwrite:main',
             'mpc_hw = puzzlebot_box_mpc.mpc_hw:main',
+            'calibration_node =  puzzlebot_box_mpc.calibration_node:main',
+            'teleop =  puzzlebot_box_mpc.teleop:main',
         ],
     },
 )
