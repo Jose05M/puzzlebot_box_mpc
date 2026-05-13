@@ -1,6 +1,4 @@
-````text
 # Puzzlebot Visual Servoing with Sampled MPC
-
 This project implements a vision-based autonomous navigation system for the Puzzlebot platform using a calibrated Sampled Model Predictive Controller (MPC).
 
 The robot detects colored boxes using a monocular RGB camera, estimates relative distance and angular error directly from image features, and autonomously approaches the target using visual servoing.
