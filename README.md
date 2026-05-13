@@ -200,12 +200,12 @@ Contiene launch files ROS2 utilizados para ejecutar el sistema.
 El paquete `puzzlebot_box_mpc` debe estar instalado en **dos lugares**:
 
 **En el Puzzlebot (Jetson)** — donde corre todo el procesamiento:
-- `mpc_odom.py` — nodo principal
+- `mpc_hw.py` — nodo principal
 - `puzzlebot_odometry.py` — odometría
 - `launch/puzzlebot_mpc.launch.py` — launch file
 
 **En tu laptop** — solo para enviar comandos:
-- `teleop_color.py` — interfaz de teclado
+- `teleop.py` — interfaz de teclado
 
 Solo necesita ROS2 instalado y estar conectada al hotspot del Puzzlebot.
 
@@ -241,13 +241,13 @@ ros2 launch puzzlebot_box_mpc puzzlebot_mpc.launch.py
 
 Esto levanta automáticamente:
 - `puzzlebot_odometry` — odometría diferencial
-- `mpc_odom` — percepción visual, MPC y FSM
+- `mpc_hw` — percepción visual, MPC y FSM
 - `video_source` — stream de cámara
 
 **4. Ejecutar el teleop en tu laptop** (terminal sin SSH)
 ```bash
 source install/setup.bash
-ros2 run puzzlebot_box_mpc teleop_color
+ros2 run puzzlebot_box_mpc teleop
 ```
 
 Ambos se comunican por la red del hotspot del Puzzlebot.
