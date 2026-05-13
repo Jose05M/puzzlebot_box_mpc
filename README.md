@@ -1,4 +1,4 @@
-````md
+````text
 # Puzzlebot Visual Servoing with Sampled MPC
 
 This project implements a vision-based autonomous navigation system for the Puzzlebot platform using a calibrated Sampled Model Predictive Controller (MPC).
