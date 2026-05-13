@@ -303,6 +303,18 @@ Se muestra la imagen de la trayectoria:
 
 ![Trayectoria](media/01_trajectory_xy.png)
 
+# Demo
+
+<p align="center">
+  <a href="https://youtu.be/PtMr1Hu5MvI">
+    <img src="media/01_trajectory_xy.png" width="700"/>
+  </a>
+</p>
+
+<p align="center">
+  Click en la imagen para ver el video completo del sistema.
+</p>
+
 ---
 
 # Autor
