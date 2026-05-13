@@ -1,9 +1,7 @@
-````md id="g2g5vx"
+
 # Visual Servoing para Puzzlebot con Sampled MPC
 
-Este proyecto implementa un sistema de navegación autónoma basada en visión para la plataforma Puzzlebot utilizando un controlador predictivo Sampled Model Predictive Control (MPC) calibrado experimentalmente.
-
-El robot detecta cajas de colores utilizando una cámara RGB monocular, estima la distancia relativa y el error angular directamente desde características visuales de la imagen, y se aproxima autónomamente al objetivo mediante visual servoing.
+Este proyecto implementa un sistema de navegación autónoma basada en visión para el Puzzlebot utilizando un controlador MPC. El robot detecta cajas de colores utilizando una Raspberry Pi Camera v2, estima la distancia relativa y el error angular directamente desde características visuales de la imagen, y se aproxima autónomamente al objetivo mediante visual servoing.
 
 Después de alcanzar la distancia deseada, el robot navega hacia un waypoint de entrega y finalmente regresa a su posición inicial utilizando control basado en odometría.
 
@@ -42,42 +40,40 @@ WAIT_COMMAND
 
 ```text
 .
-├── teleop.py
-├── puzzlebot_odometry.py
-├── mpc_hw.py
-├── calibration_node.py
-├── analyze_calibration.py
-├── mpc_results.csv
+├── calibration
+│   ├── analyze_calibration.py
+│   └── calibration_data.csv
+├── launch
+│   └── puzzlebot_mpc.launch.py
+├── media
+│   ├── 01_trajectory_xy.png
+│   ├── 02_position_vs_time.png
+│   ├── 03_orientation_vs_time.png
+│   ├── 04_velocity_commands.png
+│   ├── 05_distance_error.png
+│   ├── 06_angular_error.png
+│   ├── 07_mpc_cost.png
+│   ├── 08_robot_state.png
+│   ├── 09_target_detection.png
+│   ├── analisis.py
+│   └── mpc_results.csv
+├── puzzlebot_box_mpc
+│   ├── calibration_node.py
+│   ├── mpc_hw.py
+│   ├── puzzlebot_odometry.py
+│   └── teleop.py
+├── package.xml
+├── setup.py
 └── README.md
 ```
 
-## Descripción de Archivos
+## Descripción de Directorios
 
-### `teleop.py`
+### `puzzlebot_box_mpc/`
 
-Interfaz de teclado utilizada para enviar comandos al robot:
+Contiene los nodos principales ROS2 del proyecto:
 
-* seleccionar color objetivo,
-* enviar waypoints,
-* regresar a home,
-* cancelar misiones.
-
----
-
-### `puzzlebot_odometry.py`
-
-Nodo ROS2 encargado de calcular la odometría diferencial utilizando las velocidades de las ruedas medidas por encoders.
-
-Publica:
-
-```text
-/odom
-```
-
----
-
-### `mpc_hw.py`
-
+- `mpc_hw.py`
 Nodo principal del proyecto.
 
 Implementa:
@@ -91,10 +87,24 @@ Implementa:
 * controlador de regreso,
 * almacenamiento de datos en CSV.
 
----
+- `puzzlebot_odometry.py`
+Nodo ROS2 encargado de calcular la odometría diferencial utilizando las velocidades de las ruedas medidas por encoders.
 
-### `calibration_node.py`
+Publica:
 
+```text
+/odom
+```
+
+- `teleop.py`
+Interfaz de teclado utilizada para enviar comandos al robot:
+
+* seleccionar color objetivo,
+* enviar waypoints,
+* regresar a home,
+* cancelar misiones.
+
+- `calibration_node.py`
 Nodo utilizado para generar datos experimentales para la calibración del modelo predictivo.
 
 Realiza:
@@ -106,7 +116,11 @@ Realiza:
 
 ---
 
-### `analyze_calibration.py`
+### `calibration/`
+
+Incluye herramientas y datos utilizados para calibrar el modelo predictivo:
+
+- `analyze_calibration.py`
 
 Script offline utilizado para estimar:
 
@@ -115,17 +129,28 @@ Script offline utilizado para estimar:
 
 del modelo predictivo utilizado por el MPC.
 
+- `calibration_data.csv`
+datos experimentales registrados.
+
 ---
 
-# Dependencias
+### `media/`
 
-## ROS2
+Contiene:
 
-Probado en:
+- gráficas experimentales,
+- resultados,
+- trayectoria del robot,
+- señales de control,
+- análisis temporal,
+- archivo CSV con resultados de las pruebas.
 
-```text
-ROS2 Humble
-```
+---
+
+### `launch/`
+
+Launch files ROS2 utilizados para ejecutar el sistema.
+
 
 ---
 
