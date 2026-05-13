@@ -301,9 +301,7 @@ El robot logró realizar exitosamente:
 
 Se muestra la imagen de la trayectoria:
 
-```md
-![Trayectoria](/media/01_trajectory_xy.png)
-```
+![Trayectoria](media/01_trajectory_xy.png)
 
 ---
 
