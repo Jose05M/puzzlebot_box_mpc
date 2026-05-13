@@ -195,44 +195,70 @@ Contiene launch files ROS2 utilizados para ejecutar el sistema.
 | `/odom`    | `nav_msgs/Odometry`   | Pose estimada del robot |
 
 ---
+## Requisitos Previos
 
-# Cómo Ejecutar
+El paquete `puzzlebot_box_mpc` debe estar instalado en **dos lugares**:
 
----
+**En el Puzzlebot (Jetson)** — donde corre todo el procesamiento:
+- `mpc_odom.py` — nodo principal
+- `puzzlebot_odometry.py` — odometría
+- `launch/puzzlebot_mpc.launch.py` — launch file
 
-## 1. Ejecutar Nodo de Odometría
+**En tu laptop** — solo para enviar comandos:
+- `teleop_color.py` — interfaz de teclado
 
-```bash
-python3 puzzlebot_odometry.py
-```
-
-Este nodo estima la pose del robot utilizando las velocidades de las ruedas.
-
----
-
-## 2. Ejecutar Nodo Principal MPC
-
-```bash
-python3 mpc_hw.py
-```
-
-Este nodo ejecuta:
-
-* percepción visual,
-* controlador MPC,
-* FSM,
-* navegación,
-* sistema de logging.
+Solo necesita ROS2 instalado y estar conectada al hotspot del Puzzlebot.
 
 ---
 
-## 3. Ejecutar Interfaz de Comandos
+### Copiar el teleop a tu laptop
+
+Si ya tienes el paquete completo en el Puzzlebot, copia solo el teleop:
 
 ```bash
-python3 teleop.py
+scp puzzlebot@<IP>:~/ros2_ws/src/puzzlebot_box_mpc/puzzlebot_box_mpc/teleop_color.py ~/ros2_ws/src/puzzlebot_box_mpc/puzzlebot_box_mpc/
 ```
 
-Esto abre la interfaz de teclado para enviar comandos al robot.
+Luego compila en tu laptop:
+```bash
+cd ~/ros2_ws
+colcon build --packages-select puzzlebot_box_mpc
+source install/setup.bash
+```
+
+---
+
+## Cómo Ejecutar
+
+**1. Conectarse al Puzzlebot por SSH**
+```bash
+ssh puzzlebot@<IP_DEL_PUZZLEBOT>
+```
+
+**2. Compilar el paquete en el Puzzlebot**
+```bash
+cd ~/ros2_ws
+colcon build --packages-select puzzlebot_box_mpc
+source install/setup.bash
+```
+
+**3. Ejecutar todos los nodos en el Puzzlebot**
+```bash
+ros2 launch puzzlebot_box_mpc puzzlebot_mpc.launch.py
+```
+
+Esto levanta automáticamente:
+- `puzzlebot_odometry` — odometría diferencial
+- `mpc_odom` — percepción visual, MPC y FSM
+- `video_source` — stream de cámara
+
+**4. Ejecutar el teleop en tu laptop** (terminal sin SSH)
+```bash
+source install/setup.bash
+ros2 run puzzlebot_box_mpc teleop_color
+```
+
+Ambos se comunican por la red del hotspot del Puzzlebot.
 
 ---
 
