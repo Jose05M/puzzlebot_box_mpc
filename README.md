@@ -297,13 +297,9 @@ El robot logró realizar exitosamente:
 
 ---
 
-# Ejemplo de Trayectoria
-
-Se muestra la imagen de la trayectoria:
-
-![Trayectoria](media/01_trajectory_xy.png)
-
 # Demo
+
+Se muestra la imagen de la trayectoria que recorrio el Puzzlebot.
 
 <p align="center">
   <a href="https://youtu.be/PtMr1Hu5MvI">
@@ -312,7 +308,7 @@ Se muestra la imagen de la trayectoria:
 </p>
 
 <p align="center">
-  Click en la imagen para ver el video completo del sistema.
+  Click en la imagen para ver el video de la ejecución del sistema.
 </p>
 
 ---
@@ -320,4 +316,7 @@ Se muestra la imagen de la trayectoria:
 # Autor
 
 José Eduardo Sánchez Martínez
+Cesar Arellano Arellano
+Josue Ureña Valencia
+Rafael Andre Gamiz Salazar
 
