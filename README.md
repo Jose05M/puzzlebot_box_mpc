@@ -1,24 +1,26 @@
-# Puzzlebot Visual Servoing with Sampled MPC
-This project implements a vision-based autonomous navigation system for the Puzzlebot platform using a calibrated Sampled Model Predictive Controller (MPC).
+````md id="g2g5vx"
+# Visual Servoing para Puzzlebot con Sampled MPC
 
-The robot detects colored boxes using a monocular RGB camera, estimates relative distance and angular error directly from image features, and autonomously approaches the target using visual servoing.
+Este proyecto implementa un sistema de navegación autónoma basada en visión para la plataforma Puzzlebot utilizando un controlador predictivo Sampled Model Predictive Control (MPC) calibrado experimentalmente.
 
-After reaching the desired distance, the robot navigates toward a delivery waypoint and finally returns to its home position using odometry-based control.
+El robot detecta cajas de colores utilizando una cámara RGB monocular, estima la distancia relativa y el error angular directamente desde características visuales de la imagen, y se aproxima autónomamente al objetivo mediante visual servoing.
+
+Después de alcanzar la distancia deseada, el robot navega hacia un waypoint de entrega y finalmente regresa a su posición inicial utilizando control basado en odometría.
 
 ---
 
-# System Overview
+# Descripción General del Sistema
 
-The system combines:
+El sistema integra:
 
-- Visual perception using OpenCV
-- Relative state estimation $(\rho,\alpha)$
+- Percepción visual usando OpenCV
+- Estimación relativa del estado $(\rho,\alpha)$
 - Sampled Model Predictive Control (MPC)
-- Differential-drive odometry
-- Finite State Machine (FSM)
-- Waypoint and return-home navigation
+- Odometría diferencial
+- Máquina de estados finitos (FSM)
+- Navegación hacia waypoints y regreso a home
 
-Main mission flow:
+Flujo principal de la misión:
 
 ```text
 WAIT_COMMAND
@@ -36,7 +38,7 @@ WAIT_COMMAND
 
 ---
 
-# Repository Structure
+# Estructura del Repositorio
 
 ```text
 .
@@ -49,24 +51,24 @@ WAIT_COMMAND
 └── README.md
 ```
 
-## Files Description
+## Descripción de Archivos
 
 ### `teleop.py`
 
-Keyboard interface used to send commands to the robot:
+Interfaz de teclado utilizada para enviar comandos al robot:
 
-* select target color,
-* send waypoint commands,
-* return home,
-* cancel missions.
+* seleccionar color objetivo,
+* enviar waypoints,
+* regresar a home,
+* cancelar misiones.
 
 ---
 
 ### `puzzlebot_odometry.py`
 
-ROS2 node that computes differential-drive odometry using wheel encoder velocities.
+Nodo ROS2 encargado de calcular la odometría diferencial utilizando las velocidades de las ruedas medidas por encoders.
 
-Publishes:
+Publica:
 
 ```text
 /odom
@@ -76,50 +78,50 @@ Publishes:
 
 ### `mpc_hw.py`
 
-Main node of the project.
+Nodo principal del proyecto.
 
-Implements:
+Implementa:
 
-* color detection,
-* target selection,
-* distance and angle estimation,
+* detección de color,
+* selección de objetivo,
+* estimación de distancia y ángulo,
 * Sampled MPC,
-* finite state machine,
-* waypoint navigation,
-* return-home controller,
-* CSV logging.
+* máquina de estados finitos,
+* navegación hacia waypoint,
+* controlador de regreso,
+* almacenamiento de datos en CSV.
 
 ---
 
 ### `calibration_node.py`
 
-Used to generate experimental data for model calibration.
+Nodo utilizado para generar datos experimentales para la calibración del modelo predictivo.
 
-Performs:
+Realiza:
 
-* linear motion trials,
-* angular motion trials,
-* focal calibration,
-* visual data logging.
+* pruebas lineales,
+* pruebas angulares,
+* calibración de distancia focal,
+* registro de datos visuales.
 
 ---
 
 ### `analyze_calibration.py`
 
-Offline analysis script used to estimate:
+Script offline utilizado para estimar:
 
 * $K_\rho$
 * $K_\alpha$
 
-for the predictive MPC model.
+del modelo predictivo utilizado por el MPC.
 
 ---
 
-# Dependencies
+# Dependencias
 
 ## ROS2
 
-Tested on:
+Probado en:
 
 ```text
 ROS2 Humble
@@ -127,9 +129,9 @@ ROS2 Humble
 
 ---
 
-## Python Libraries
+## Librerías de Python
 
-Install required packages:
+Instalar dependencias:
 
 ```bash
 pip install opencv-python numpy pandas transforms3d
@@ -137,86 +139,86 @@ pip install opencv-python numpy pandas transforms3d
 
 ---
 
-# ROS2 Topics
+# Topics ROS2
 
-## Subscribed Topics
+## Topics Suscritos
 
-| Topic                | Type                | Description       |
-| -------------------- | ------------------- | ----------------- |
-| `/video_source/raw`  | `sensor_msgs/Image` | RGB camera stream |
-| `/odom`              | `nav_msgs/Odometry` | Robot odometry    |
-| `/box_color_command` | `std_msgs/String`   | User commands     |
-
----
-
-## Published Topics
-
-| Topic      | Type                  | Description          |
-| ---------- | --------------------- | -------------------- |
-| `/cmd_vel` | `geometry_msgs/Twist` | Velocity commands    |
-| `/odom`    | `nav_msgs/Odometry`   | Estimated robot pose |
+| Topic                | Tipo                | Descripción          |
+| -------------------- | ------------------- | -------------------- |
+| `/video_source/raw`  | `sensor_msgs/Image` | Stream de cámara RGB |
+| `/odom`              | `nav_msgs/Odometry` | Odometría del robot  |
+| `/box_color_command` | `std_msgs/String`   | Comandos del usuario |
 
 ---
 
-# How to Run
+## Topics Publicados
+
+| Topic      | Tipo                  | Descripción             |
+| ---------- | --------------------- | ----------------------- |
+| `/cmd_vel` | `geometry_msgs/Twist` | Comandos de velocidad   |
+| `/odom`    | `nav_msgs/Odometry`   | Pose estimada del robot |
 
 ---
 
-## 1. Run Odometry Node
+# Cómo Ejecutar
+
+---
+
+## 1. Ejecutar Nodo de Odometría
 
 ```bash
 python3 puzzlebot_odometry.py
 ```
 
-This node estimates the robot pose from wheel encoder velocities.
+Este nodo estima la pose del robot utilizando las velocidades de las ruedas.
 
 ---
 
-## 2. Run Main MPC Node
+## 2. Ejecutar Nodo Principal MPC
 
 ```bash
 python3 mpc_hw.py
 ```
 
-This launches:
+Este nodo ejecuta:
 
-* visual perception,
-* MPC controller,
+* percepción visual,
+* controlador MPC,
 * FSM,
-* waypoint navigation,
-* logging system.
+* navegación,
+* sistema de logging.
 
 ---
 
-## 3. Run Teleoperation Commands
+## 3. Ejecutar Interfaz de Comandos
 
 ```bash
 python3 teleop.py
 ```
 
-This opens the keyboard interface for mission commands.
+Esto abre la interfaz de teclado para enviar comandos al robot.
 
 ---
 
-# Teleoperation Commands
+# Comandos de Teleoperación
 
-| Key     | Action           |
-| ------- | ---------------- |
-| `g`     | Track green box  |
-| `p`     | Track pink box   |
-| `y`     | Track yellow box |
-| `h`     | Return home      |
-| `w x y` | Go to waypoint   |
-| `c`     | Cancel mission   |
-| `q`     | Exit             |
+| Tecla   | Acción               |
+| ------- | -------------------- |
+| `g`     | Seguir caja verde    |
+| `p`     | Seguir caja rosa     |
+| `y`     | Seguir caja amarilla |
+| `h`     | Regresar a home      |
+| `w x y` | Ir a waypoint        |
+| `c`     | Cancelar misión      |
+| `q`     | Salir                |
 
-Example:
+Ejemplo:
 
 ```text
 w 1.5 2.0
 ```
 
-sends the robot to waypoint:
+envía al robot al waypoint:
 
 ```text
 (1.5 , 2.0)
@@ -224,20 +226,20 @@ sends the robot to waypoint:
 
 ---
 
-# MPC Predictive Model
+# Modelo Predictivo MPC
 
-The controller operates on the relative visual state:
+El controlador opera sobre el estado visual relativo:
 
 $$
 x = [\rho,\alpha]^T
 $$
 
-where:
+donde:
 
-* $\rho$ = estimated distance to target,
-* $\alpha$ = relative angular error.
+* $\rho$ = distancia estimada al objetivo,
+* $\alpha$ = error angular relativo.
 
-The calibrated predictive model is:
+El modelo predictivo calibrado es:
 
 $$
 \rho_{k+1} =
@@ -251,23 +253,23 @@ $$
 K_{\alpha}\omega_k\Delta t
 $$
 
-The control inputs are:
+Las entradas de control son:
 
 $$
 u = [v,\omega]^T
 $$
 
-The controller evaluates sampled control candidates over a finite prediction horizon and selects the action with minimum cost.
+El controlador evalúa múltiples acciones candidatas dentro de un horizonte finito de predicción y selecciona la acción con menor costo.
 
 ---
 
-# Calibration Procedure
+# Procedimiento de Calibración
 
-The MPC model parameters were experimentally calibrated using controlled motion experiments.
+Los parámetros del modelo MPC fueron calibrados experimentalmente mediante pruebas controladas de movimiento.
 
 ---
 
-## 1. Run Calibration Node
+## 1. Ejecutar Nodo de Calibración
 
 ```bash
 python3 calibration_node.py
@@ -275,23 +277,23 @@ python3 calibration_node.py
 
 ---
 
-## 2. Execute Calibration Trials
+## 2. Ejecutar Pruebas de Calibración
 
-Keyboard commands:
+Comandos disponibles:
 
-| Key | Action                  |
-| --- | ----------------------- |
-| `k` | Calibrate focal length  |
-| `a` | Positive angular motion |
-| `d` | Negative angular motion |
-| `v` | Linear forward motion   |
-| `x` | Stop robot              |
+| Tecla | Acción                      |
+| ----- | --------------------------- |
+| `k`   | Calibrar distancia focal    |
+| `a`   | Movimiento angular positivo |
+| `d`   | Movimiento angular negativo |
+| `v`   | Movimiento lineal           |
+| `x`   | Detener robot               |
 
 ---
 
-## 3. Generate Calibration Data
+## 3. Generar Datos de Calibración
 
-The node saves:
+El nodo genera:
 
 ```text
 calibration_data.csv
@@ -299,105 +301,105 @@ calibration_data.csv
 
 ---
 
-## 4. Analyze Calibration Data
+## 4. Analizar Datos de Calibración
 
 ```bash
 python3 analyze_calibration.py
 ```
 
-This estimates:
+Este script estima:
 
 * $K_\rho$
 * $K_\alpha$
 
-used by the predictive model.
+utilizados por el modelo predictivo.
 
 ---
 
-# Logged Experimental Data
+# Datos Experimentales Registrados
 
-During execution, the MPC node stores experimental data in:
+Durante la ejecución, el nodo MPC almacena datos experimentales en:
 
 ```text
 mpc_results.csv
 ```
 
-The file includes:
+El archivo incluye:
 
-| Variable          | Description        |
-| ----------------- | ------------------ |
-| `rho`             | Estimated distance |
-| `alpha`           | Angular error      |
-| `v_cmd`           | Linear velocity    |
-| `w_cmd`           | Angular velocity   |
-| `cost`            | MPC cost           |
-| `x,y,theta`       | Odometry pose      |
-| `state`           | FSM state          |
-| `target_detected` | Detection flag     |
-
----
-
-# Results
-
-The system was experimentally validated on a real Puzzlebot platform.
-
-The robot successfully performed:
-
-* visual target tracking,
-* autonomous approach,
-* waypoint navigation,
-* return-home behavior,
-* multiple mission cycles.
-
-The implementation also includes:
-
-* smooth control actions,
-* bounded velocity commands,
-* FSM-based mission coordination,
-* experimental data logging.
+| Variable          | Descripción            |
+| ----------------- | ---------------------- |
+| `rho`             | Distancia estimada     |
+| `alpha`           | Error angular          |
+| `v_cmd`           | Velocidad lineal       |
+| `w_cmd`           | Velocidad angular      |
+| `cost`            | Costo MPC              |
+| `x,y,theta`       | Pose odométrica        |
+| `state`           | Estado de la FSM       |
+| `target_detected` | Indicador de detección |
 
 ---
 
-# Example Trajectory
+# Resultados
 
-*Add your trajectory image here*
+El sistema fue validado experimentalmente sobre un Puzzlebot real.
+
+El robot logró realizar exitosamente:
+
+* seguimiento visual,
+* aproximación autónoma,
+* navegación hacia waypoint,
+* regreso a home,
+* múltiples ciclos completos de misión.
+
+La implementación también incluye:
+
+* acciones de control suaves,
+* velocidades acotadas,
+* coordinación mediante FSM,
+* almacenamiento de datos experimentales.
+
+---
+
+# Ejemplo de Trayectoria
+
+Agregar aquí imagen de trayectoria:
 
 ```md
-![Trajectory](01_trajectory_xy.png)
+![Trayectoria](01_trajectory_xy.png)
 ```
 
 ---
 
-# Future Improvements
+# Mejoras Futuras
 
-Possible future extensions include:
+Posibles extensiones futuras:
 
-* obstacle avoidance,
-* dynamic waypoint generation,
-* full IBVS interaction matrix,
-* SLAM integration,
-* manipulator integration,
-* nonlinear MPC,
-* multi-object mission planning.
-
----
-
-# Report
-
-This repository contains only the implementation and execution pipeline.
-
-For detailed:
-
-* mathematical derivations,
-* controller formulation,
-* experimental analysis,
-* system modeling,
-
-refer to the full project report.
+* evasión de obstáculos,
+* generación dinámica de waypoints,
+* implementación completa de IBVS,
+* integración con SLAM,
+* integración con manipulador,
+* MPC no lineal,
+* planeación multiobjetivo.
 
 ---
 
-# Author
+# Reporte
+
+Este repositorio contiene únicamente la implementación y el pipeline de ejecución.
+
+Para detalles sobre:
+
+* formulación matemática,
+* diseño del controlador,
+* análisis experimental,
+* modelado del sistema,
+
+consultar el reporte completo del proyecto.
+
+---
+
+# Autor
 
 José Eduardo Sánchez Martínez
 
