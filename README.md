@@ -71,23 +71,29 @@ WAIT_COMMAND
 
 ### `puzzlebot_box_mpc/`
 
-Contiene los nodos principales ROS2 del proyecto:
+Contiene los nodos principales ROS2 del proyecto.
 
-- `mpc_hw.py`
-Nodo principal del proyecto.
+---
+
+#### `mpc_hw.py`
+
+Nodo principal del sistema.
 
 Implementa:
 
-* detección de color,
-* selección de objetivo,
-* estimación de distancia y ángulo,
-* Sampled MPC,
-* máquina de estados finitos,
-* navegación hacia waypoint,
-* controlador de regreso,
-* almacenamiento de datos en CSV.
+- detección de color,
+- selección de objetivo,
+- estimación de distancia y ángulo,
+- Sampled MPC,
+- máquina de estados finitos (FSM),
+- navegación hacia waypoint,
+- controlador de regreso,
+- almacenamiento de datos en CSV.
 
-- `puzzlebot_odometry.py`
+---
+
+#### `puzzlebot_odometry.py`
+
 Nodo ROS2 encargado de calcular la odometría diferencial utilizando las velocidades de las ruedas medidas por encoders.
 
 Publica:
@@ -96,71 +102,76 @@ Publica:
 /odom
 ```
 
-- `teleop.py`
-Interfaz de teclado utilizada para enviar comandos al robot:
+---
 
-* seleccionar color objetivo,
-* enviar waypoints,
-* regresar a home,
-* cancelar misiones.
+#### `teleop.py`
 
-- `calibration_node.py`
+Interfaz de teclado utilizada para enviar comandos al robot.
+
+Permite:
+
+- seleccionar color objetivo,
+- enviar waypoints,
+- regresar a home,
+- cancelar misiones.
+
+---
+
+#### `calibration_node.py`
+
 Nodo utilizado para generar datos experimentales para la calibración del modelo predictivo.
 
 Realiza:
 
-* pruebas lineales,
-* pruebas angulares,
-* calibración de distancia focal,
-* registro de datos visuales.
+- pruebas lineales,
+- pruebas angulares,
+- calibración de distancia focal,
+- registro de datos visuales.
 
 ---
 
 ### `calibration/`
 
-Incluye herramientas y datos utilizados para calibrar el modelo predictivo:
+Incluye herramientas y datos utilizados para calibrar el modelo predictivo.
 
-- `analyze_calibration.py`
+---
+
+#### `analyze_calibration.py`
 
 Script offline utilizado para estimar:
 
-* $K_\rho$
-* $K_\alpha$
+- $K_\rho$
+- $K_\alpha$
 
 del modelo predictivo utilizado por el MPC.
 
-- `calibration_data.csv`
-datos experimentales registrados.
+---
+
+#### `calibration_data.csv`
+
+Archivo CSV con los datos experimentales registrados durante las pruebas de calibración.
 
 ---
 
 ### `media/`
 
-Contiene:
+Contiene resultados experimentales y gráficas generadas durante las pruebas.
 
-- gráficas experimentales,
-- resultados,
+Incluye:
+
 - trayectoria del robot,
+- errores visuales,
 - señales de control,
-- análisis temporal,
-- archivo CSV con resultados de las pruebas.
+- evolución temporal,
+- estados de la FSM,
+- resultados almacenados en CSV.
 
 ---
 
 ### `launch/`
 
-Launch files ROS2 utilizados para ejecutar el sistema.
+Contiene launch files ROS2 utilizados para ejecutar el sistema.
 
-
----
-
-## Librerías de Python
-
-Instalar dependencias:
-
-```bash
-pip install opencv-python numpy pandas transforms3d
-```
 
 ---
 
