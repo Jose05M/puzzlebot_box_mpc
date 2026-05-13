@@ -315,8 +315,8 @@ Se muestra la imagen de la trayectoria que recorrio el Puzzlebot.
 
 # Autor
 
-José Eduardo Sánchez Martínez
-Cesar Arellano Arellano
-Josue Ureña Valencia
+José Eduardo Sánchez Martínez -
+Cesar Arellano Arellano -
+Josue Ureña Valencia -
 Rafael Andre Gamiz Salazar
 
