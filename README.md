@@ -265,7 +265,7 @@ Ambos se comunican por la red del hotspot del Puzzlebot.
 | `c`     | Cancelar misión      |
 | `q`     | Salir                |
 
-```
+
 
 
 # Datos Experimentales Registrados
