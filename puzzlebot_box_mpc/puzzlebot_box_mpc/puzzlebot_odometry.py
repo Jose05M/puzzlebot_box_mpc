@@ -1,6 +1,6 @@
 #puzzlebot_odometry.py
 import rclpy
-import transforms3d
+from scipy.spatial.transform import Rotation as R
 import numpy as np
 import signal, os, time
 
@@ -99,19 +99,19 @@ class DeadReckoning(Node):
 
     def publish_odometry(self):
         """ Publishes odometry message with updated state """
-        q1 = transforms3d.euler.euler2quat(0, 0, self.Th)
+        q1 = R.from_euler('xyz', [0.0, 0.0, self.Th]).as_quat()
 
         self.odom_msg.header.stamp = self.get_clock().now().to_msg()
         self.odom_msg.header.frame_id = 'odom'
         self.odom_msg.child_frame_id = "base_footprint"
-        
+
         self.odom_msg.pose.pose.position.x = self.X
         self.odom_msg.pose.pose.position.y = self.Y
         self.odom_msg.pose.pose.position.z = 0.0
-        self.odom_msg.pose.pose.orientation.x = q1[1]
-        self.odom_msg.pose.pose.orientation.y = q1[2]
-        self.odom_msg.pose.pose.orientation.z = q1[3]
-        self.odom_msg.pose.pose.orientation.w = q1[0]
+        self.odom_msg.pose.pose.orientation.x = q1[0]
+        self.odom_msg.pose.pose.orientation.y = q1[1]
+        self.odom_msg.pose.pose.orientation.z = q1[2]
+        self.odom_msg.pose.pose.orientation.w = q1[3]
     
         self.odom_msg.twist.twist.linear.x = self.V
         self.odom_msg.twist.twist.angular.z = self.Omega
