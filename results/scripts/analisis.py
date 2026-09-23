@@ -8,7 +8,7 @@ import numpy as np
 # CONFIGURACIÓN
 # =========================================================
 
-CSV_PATH = sys.argv[1] if len(sys.argv) > 1 else "mpc_results.csv"
+CSV_PATH = sys.argv[1] if len(sys.argv) > 1 else "../data/mpc_results.csv"
 
 STATE_COLORS = {
     "WAIT_COMMAND":     "#aaaaaa",
