@@ -1,11 +1,9 @@
 # Visual Servoing for Puzzlebot with Sampled MPC
 
 <p align="center">
-  <video src="results/video/demo.mp4" controls autoplay loop muted playsinline width="720">
-    Your browser does not support inline video. Watch it on <a href="https://youtu.be/PtMr1Hu5MvI">YouTube</a> instead.
-  </video>
+  <img src="results/video/demo.gif" width="480" alt="Puzzlebot detecting and approaching a box via visual servoing">
 </p>
-<p align="center"><em>The Puzzlebot running the full mission on real hardware: visual approach, collection, waypoint navigation and return home.</em></p>
+<p align="center"><em>The Puzzlebot detecting the target box and closing in on it via visual servoing. Full run: see <a href="#report-and-video">Report and Video</a>.</em></p>
 
 <p align="center">
   <img alt="ROS 2" src="https://img.shields.io/badge/ROS_2-ament__python-22314E?logo=ros&logoColor=white">
@@ -308,7 +306,8 @@ The robot successfully performed:
 # Report and Video
 
 **📄 Challenge report** — [report/Challenge_Visual_Servoing.pdf](report/Challenge_Visual_Servoing.pdf)
-**🎥 Demo video** — embedded at the top of this README ([results/video/demo.mp4](results/video/demo.mp4), compressed); full-quality version on [YouTube](https://youtu.be/PtMr1Hu5MvI)
+
+**🎬 Demo video** — [results/video/demo.mp4](results/video/demo.mp4); full-quality version on [YouTube](https://youtu.be/PtMr1Hu5MvI)
 
 ---
 
