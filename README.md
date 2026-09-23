@@ -133,7 +133,7 @@ puzzlebot_box_mpc/
 # Requirements
 
 - ROS 2 (tested with the Puzzlebot's Jetson image)
-- OpenCV (`cv2`), NumPy, `transforms3d`
+- OpenCV (`cv2`), NumPy, SciPy (`scipy.spatial.transform.Rotation`, used for the odometry quaternion)
 - [`ros_deep_learning`](https://github.com/dusty-nv/ros_deep_learning) (`video_source` launch file, used for the camera stream)
 
 The `puzzlebot_box_mpc` package must be installed in **two places**:

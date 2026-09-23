@@ -17,7 +17,7 @@ setup(
     zip_safe=True,
     maintainer='José Eduardo Sánchez Martínez',
     maintainer_email='eduardo.mtz1403@gmail.com',
-    description='Vision-based autonomous navigation for the Puzzlebot using Sampled MPC visual servoing.',
+    description='Vision-based autonomous navigation for the Puzzlebot using Sampled MPC.',
     license='Apache-2.0',
     tests_require=['pytest'],
     entry_points={
