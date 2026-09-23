@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 
-CSV_PATH = "calibration_data.csv"
+CSV_PATH = "../data/calibration_data.csv"
 
 
 def safe_mean(values):
