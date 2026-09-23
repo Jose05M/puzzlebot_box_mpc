@@ -313,7 +313,9 @@ The robot successfully performed:
 
 # Authors
 
-José Eduardo Sánchez Martínez -
-Cesar Arellano Arellano -
-Josue Ureña Valencia -
-Rafael Andre Gamiz Salazar
+- José Eduardo Sánchez Martínez     IRS | A01738476
+- Josue Ureña Valencia              IRS | A01738940
+- César Arellano Arellano           IRS | A00839373
+- Rafael André Gamiz Salazar        IRS | A00838280
+
+Project developed for the TE3002B – Control Inteligente course at Tecnológico de Monterrey, under Prof. Nezih Nieto Gutiérrez. Challenge theme: "Optimal Control for Visual Servoing in Robotics."

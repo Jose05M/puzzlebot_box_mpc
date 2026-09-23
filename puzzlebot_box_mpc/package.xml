@@ -3,9 +3,9 @@
 <package format="3">
   <name>puzzlebot_box_mpc</name>
   <version>0.0.0</version>
-  <description>TODO: Package description</description>
-  <maintainer email="puzzlebot@todo.todo">puzzlebot</maintainer>
-  <license>TODO: License declaration</license>
+  <description>Vision-based autonomous navigation for the Puzzlebot using Sampled MPC visual servoing.</description>
+  <maintainer email="eduardo.mtz1403@gmail.com">José Eduardo Sánchez Martínez</maintainer>
+  <license>Apache-2.0</license>
 
   <depend>rclpy</depend>
   <depend>sensor_msgs</depend>

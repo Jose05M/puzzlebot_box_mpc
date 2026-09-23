@@ -15,10 +15,10 @@ setup(
     ],
     install_requires=['setuptools'],
     zip_safe=True,
-    maintainer='puzzlebot',
-    maintainer_email='puzzlebot@todo.todo',
-    description='TODO: Package description',
-    license='TODO: License declaration',
+    maintainer='José Eduardo Sánchez Martínez',
+    maintainer_email='eduardo.mtz1403@gmail.com',
+    description='Vision-based autonomous navigation for the Puzzlebot using Sampled MPC visual servoing.',
+    license='Apache-2.0',
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
